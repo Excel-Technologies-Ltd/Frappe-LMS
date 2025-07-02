@@ -29,20 +29,7 @@ login.bind_events = function () {
 		return false;
 	});
 
-	$(".form-signup").on("submit", function (event) {
-		event.preventDefault();
-		var args = {};
-		args.cmd = "frappe.core.doctype.user.user.sign_up";
-		args.email = ($("#signup_email").val() || "").trim();
-		args.redirect_to = frappe.utils.sanitise_redirect(frappe.utils.get_url_arg("redirect-to"));
-		args.full_name = frappe.utils.xss_sanitise(($("#signup_fullname").val() || "").trim());
-		if (!args.email || !validate_email(args.email) || !args.full_name) {
-			login.set_status({{ _("Valid email and name required") | tojson }}, 'red');
-			return false;
-		}
-		login.call(args);
-		return false;
-	});
+	
 
 	$(".form-forgot").on("submit", function (event) {
 		event.preventDefault();
