@@ -379,9 +379,15 @@ class User(Document):
 		self.db_set("reset_password_key", hashed_key)
 		self.db_set("last_reset_password_key_generated_on", now_datetime())
 
-		url = "/update-password?key=" + key
+		url = "/update-password?key=" + key 
 		if password_expired:
 			url = "/update-password?key=" + key + "&password_expired=true"
+		if self.province:
+			url = url + "&province=" + self.province
+		if self.district:
+			url = url + "&district=" + self.district
+		if self.facility:
+			url = url + "&facility=" + self.facility
 
 		link = get_url(url, allow_header_override=False)
 		if send_email:
